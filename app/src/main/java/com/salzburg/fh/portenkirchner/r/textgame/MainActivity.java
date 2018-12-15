@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnStart;
     Button btnTextauswahl;
 
-    String filename = "/Users/clemens/AndroidStudioProjects/AndroidGame/app/src/main/Lueckentexte/Pflaume.txt";
+    String filename = "assets/pflaume2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
