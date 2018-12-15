@@ -30,7 +30,7 @@ public class TextActivity extends AppCompatActivity {
     //global for access in onClick method
     int luecke_nr=0;
     ArrayList<ArrayList<String>> lueckenArray = new ArrayList<ArrayList<String>>();
-    Intent clickIntent = new Intent(this,AuswahlActivity.class);
+    Intent clickIntent;
 
     TextView tvFilename;
     TextView tvLueckentext;
@@ -47,11 +47,14 @@ public class TextActivity extends AppCompatActivity {
         tvFilename = findViewById(R.id.tv_filename);
         tvLueckentext = findViewById(R.id.tv_lueckentext);
 
+        clickIntent = new Intent(this,AuswahlActivity.class);
+
         Bundle extras = getIntent().getExtras();
         if (!extras.isEmpty()) {
             filename = extras.getString("filename");
             tvFilename.setText(filename);
         }
+
 
         char current;
         char[] buffer;
