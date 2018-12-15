@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.text.SpannableString;
+import android.text.Spanned;
 
 
 public class MainActivity extends AppCompatActivity {
