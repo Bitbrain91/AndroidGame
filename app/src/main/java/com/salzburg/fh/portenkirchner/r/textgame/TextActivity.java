@@ -35,7 +35,7 @@ public class TextActivity extends AppCompatActivity {
 
         char current;
         char[] buffer;
-        String[][] lueckenArray = {};
+        ArrayList<ArrayList<String>> lueckenArray = new ArrayList<ArrayList<String>>();
         try {
             InputStream input = getAssets().open(filename);
             int size = input.available();
@@ -51,7 +51,7 @@ public class TextActivity extends AppCompatActivity {
                 Log.d("caracter:", "" + current);
                 if (current == '<') {
                     altFlag = true;
-                    lueckenArray[lueckenZaehler][lsgZaehler] = (String) "";
+                    lueckenArray.add(new ArrayList<String>());
                     continue;
                 }
                 if (current == '>') {
@@ -62,22 +62,24 @@ public class TextActivity extends AppCompatActivity {
                 }
                 if (current == ',') {
                     lsgZaehler++;
-                    lueckenArray[lueckenZaehler][lsgZaehler] = (String) "";
                     continue;
                 }
                 if (altFlag == true) {
-                    lueckenArray[lueckenZaehler][lsgZaehler] += current;
+                    lueckenArray.get(lueckenZaehler).add(""+current);
                     buffer[bufferZaehler] = '_';
                     bufferZaehler++;
                 } else {
+                    Log.d("char:", ""+current);
                     buffer[bufferZaehler] = current;
                     bufferZaehler++;
                 }
             }
-            tvLueckentext.setText(buffer.toString());
+            Log.d("buffer:", String.valueOf(buffer));
+            tvLueckentext.setText(String.valueOf(buffer));
         }
         catch(IOException ex){
                 Log.d("ERROR DETECTED", "ERROR WHILE TRYING TO OPEN FILE");
         }
+
     }
 }

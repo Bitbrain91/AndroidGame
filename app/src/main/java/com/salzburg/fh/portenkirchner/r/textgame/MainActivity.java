@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnStart;
     Button btnTextauswahl;
 
-    String filename = "assets/pflaume2";
+    String filename = "Text.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
         btnStart = (Button)findViewById(R.id.btn_start);
         btnTextauswahl = (Button)findViewById(R.id.btn_textauswahl);
-
     }
 
     public void onClick_btn_start(View v){
