@@ -125,8 +125,7 @@ public class TextActivity extends AppCompatActivity {
                     public void onClick(View widget) {
                         //Toast.makeText(TextActivity.this, "Luecke", Toast.LENGTH_SHORT).show();
                         Log.d("gap clicked","luecke#: "+String.valueOf(luecke_nr)+"Loesung1: "+String.valueOf(lueckenArray.get(luecke_nr).get(0)));
-                        clickIntent.putExtra(lueckenArray.get(luecke_nr));
-
+                        //clickIntent.putExtra(lueckenArray.get(luecke_nr));
                     }
                 };
 
