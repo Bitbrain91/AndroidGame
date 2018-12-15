@@ -14,6 +14,7 @@ public class TextActivity extends AppCompatActivity {
 
 
     TextView tvFilename;
+    TextView tvLueckentext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +34,12 @@ public class TextActivity extends AppCompatActivity {
         }
 
         char current;
-        byte[] buffer;
+        char[] buffer;
         String[][] lueckenArray = {};
         try {
             InputStream input = getAssets().open(filename);
             int size = input.available();
-            buffer = new byte[size];
+            buffer = new char[size];
 
             int bufferZaehler = 0;
             int lsgZaehler = 0;
@@ -66,14 +67,14 @@ public class TextActivity extends AppCompatActivity {
                 }
                 if (altFlag == true) {
                     lueckenArray[lueckenZaehler][lsgZaehler] += current;
-                    buffer[bufferZaehler] = (char) '_';
+                    buffer[bufferZaehler] = '_';
                     bufferZaehler++;
                 } else {
-                    buffer[bufferZaehler] = (char) current;
+                    buffer[bufferZaehler] = current;
                     bufferZaehler++;
                 }
             }
-
+            tvLueckentext.setText(buffer.toString());
         }
         catch(IOException ex){
                 Log.d("ERROR DETECTED", "ERROR WHILE TRYING TO OPEN FILE");
