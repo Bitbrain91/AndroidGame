@@ -27,8 +27,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick_btn_start(View v){
+        /*
+        Intent i = new Intent(this, AuswahlActivity.class);
+        startActivity(i);
+        */
+
         Intent i = new Intent(this, TextActivity.class);
         i.putExtra("filename", filename);
         startActivity(i);
+
+
     }
 }

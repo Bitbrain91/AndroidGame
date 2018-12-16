@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class AuswahlActivity extends AppCompatActivity {
@@ -19,13 +20,15 @@ public class AuswahlActivity extends AppCompatActivity {
     ImageView imgCheck;
     String loesung;
 
-    Intent i = new Intent(this, AuswahlActivity.class);
+    Intent zurueck_zum_text_intent;
     boolean ok;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auswahl);
+
+        zurueck_zum_text_intent = new Intent(this, AuswahlActivity.class);
 
         btnLoesung1 = findViewById(R.id.btn_loesung1);
         btnLoesung2 = findViewById(R.id.btn_loesung2);
@@ -39,6 +42,7 @@ public class AuswahlActivity extends AppCompatActivity {
         if(extras != null) {
             //nach message in extras suchen
             ArrayList<String> loesungen = extras.getStringArrayList("loesungen");
+            //ArrayList<String> loesungen = new ArrayList<>(Arrays.asList("Baum","Strauch","Kraut","Moos"));
 
             loesung = loesungen.get(0);
 
@@ -64,7 +68,7 @@ public class AuswahlActivity extends AppCompatActivity {
             ok = false;
             imgCheck.setImageResource(R.drawable.false_smiley);
         }
-        i.putExtra("ok",ok);
+        zurueck_zum_text_intent.putExtra("ok",ok);
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {

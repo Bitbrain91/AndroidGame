@@ -31,9 +31,9 @@ public class TextActivity extends AppCompatActivity {
     int gap_width = 4;
 
     //global for access in onClick method
+
     int luecke_nr=0;
     ArrayList<ArrayList<String>> lueckenArray = new ArrayList<ArrayList<String>>();
-
 
     Intent clickIntent;
 
@@ -52,7 +52,7 @@ public class TextActivity extends AppCompatActivity {
         tvFilename = findViewById(R.id.tv_filename);
         tvLueckentext = findViewById(R.id.tv_lueckentext);
 
-        //clickIntent = new Intent(this,AuswahlActivity.class);
+        clickIntent = new Intent(TextActivity.this, AuswahlActivity.class);
 
         Bundle extras = getIntent().getExtras();
         if (!extras.isEmpty()) {
@@ -131,16 +131,19 @@ public class TextActivity extends AppCompatActivity {
                 li = lii.next();
                 luecke_nr++;
                 Log.d("establish","installing clickable span # "+String.valueOf(luecke_nr));
+
                 ClickableSpan sp = new ClickableSpan() {
                     final int lueckenr = luecke_nr;
+
                     @Override
                     public void onClick(View v) {
-
                         Toast toast = Toast.makeText(TextActivity.this, "LueckeNr "+String.valueOf(lueckenr), Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.show();
                         Log.d("gap clicked", "luecke#: " + String.valueOf(luecke_nr) + "Loesung1: " + String.valueOf(lueckenArray.get(lueckenr-1).get(0)));
                         //Log.d("gap clicked", "luecke klicked!"+String.valueOf(this.lueckenr));
+                        clickIntent.putExtra("loesungen", lueckenArray.get(lueckenr));
+                        startActivity(clickIntent);
                     }
 
                     @Override
