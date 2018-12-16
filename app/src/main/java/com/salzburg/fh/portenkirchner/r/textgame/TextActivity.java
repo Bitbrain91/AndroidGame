@@ -2,6 +2,8 @@ package com.salzburg.fh.portenkirchner.r.textgame;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.graphics.Color;
+import android.text.TextPaint;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.view.View;
 import android.widget.Toast;
+import android.view.Gravity;
 import android.content.Intent;
 
 import java.io.IOException;
@@ -30,6 +33,8 @@ public class TextActivity extends AppCompatActivity {
     //global for access in onClick method
     int luecke_nr=0;
     ArrayList<ArrayList<String>> lueckenArray = new ArrayList<ArrayList<String>>();
+
+
     Intent clickIntent;
 
     TextView tvFilename;
@@ -47,7 +52,7 @@ public class TextActivity extends AppCompatActivity {
         tvFilename = findViewById(R.id.tv_filename);
         tvLueckentext = findViewById(R.id.tv_lueckentext);
 
-        clickIntent = new Intent(this,AuswahlActivity.class);
+        //clickIntent = new Intent(this,AuswahlActivity.class);
 
         Bundle extras = getIntent().getExtras();
         if (!extras.isEmpty()) {
@@ -110,25 +115,40 @@ public class TextActivity extends AppCompatActivity {
                     bufferZaehler++;
                 }
             }
+            bufferZaehler++;
+            buffer[bufferZaehler]='\0';
             Log.d("buffer:", String.valueOf(buffer));
 
 
             //Finaly make gaps klickable
-            ArrayList<ClickableSpan> spans = new ArrayList<ClickableSpan>();
             SpannableString spannable_string_buffer = new SpannableString(String.valueOf(buffer));
-
+            ArrayList<ClickableSpan> spans = new ArrayList<ClickableSpan>();
             int li = 0;
 
+            luecke_nr=0;
             Iterator<java.lang.Integer> lii = lueckenIndex.iterator();
             while(lii.hasNext()) {
                 li = lii.next();
                 luecke_nr++;
+                Log.d("establish","installing clickable span # "+String.valueOf(luecke_nr));
                 ClickableSpan sp = new ClickableSpan() {
+                    final int lueckenr = luecke_nr;
                     @Override
-                    public void onClick(View widget) {
-                        //Toast.makeText(TextActivity.this, "Luecke", Toast.LENGTH_SHORT).show();
-                        Log.d("gap clicked","luecke#: "+String.valueOf(luecke_nr)+"Loesung1: "+String.valueOf(lueckenArray.get(luecke_nr).get(0)));
-                        //clickIntent.putExtra(lueckenArray.get(luecke_nr));
+                    public void onClick(View v) {
+
+                        Toast toast = Toast.makeText(TextActivity.this, "LueckeNr "+String.valueOf(lueckenr), Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.show();
+                        Log.d("gap clicked", "luecke#: " + String.valueOf(luecke_nr) + "Loesung1: " + String.valueOf(lueckenArray.get(lueckenr-1).get(0)));
+                        //Log.d("gap clicked", "luecke klicked!"+String.valueOf(this.lueckenr));
+                    }
+
+                    @Override
+                    public void updateDrawState(TextPaint ds) {
+                        super.updateDrawState(ds);
+                        ds.setColor(Color.BLUE);
+                        ds.setUnderlineText(false);
+                        ds.setFakeBoldText(true);
                     }
                 };
 
@@ -139,6 +159,7 @@ public class TextActivity extends AppCompatActivity {
             //Write spanned text to TextView field.
             //tvLueckentext.setText(String.valueOf(buffer));
             tvLueckentext.setText(spannable_string_buffer);
+            tvLueckentext.setMovementMethod(LinkMovementMethod.getInstance());
 
             //Print gap - Solution list to Log
             Iterator<ArrayList<String>> ali = lueckenArray.iterator();
