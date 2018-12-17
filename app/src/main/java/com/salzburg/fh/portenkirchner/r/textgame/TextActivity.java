@@ -142,7 +142,7 @@ public class TextActivity extends AppCompatActivity {
                         toast.show();
                         Log.d("gap clicked", "luecke#: " + String.valueOf(luecke_nr) + "Loesung1: " + String.valueOf(lueckenArray.get(lueckenr-1).get(0)));
                         //Log.d("gap clicked", "luecke klicked!"+String.valueOf(this.lueckenr));
-                        clickIntent.putExtra("loesungen", lueckenArray.get(lueckenr));
+                        clickIntent.putExtra("loesungen", lueckenArray.get(lueckenr-1));
                         startActivity(clickIntent);
                     }
 

@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Handler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +24,7 @@ public class AuswahlActivity extends AppCompatActivity {
     String loesung;
 
     Intent zurueck_zum_text_intent;
-    boolean ok;
+    boolean status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,29 +64,110 @@ public class AuswahlActivity extends AppCompatActivity {
         if(btnLoesung1.getText().equals(loesung))
         {
             imgCheck.setImageResource(R.drawable.ok_smiley);
-            ok = true;
+            status = true;
         }
         else
         {
-            ok = false;
+            status = false;
             imgCheck.setImageResource(R.drawable.false_smiley);
         }
-        zurueck_zum_text_intent.putExtra("ok",ok);
+        zurueck_zum_text_intent.putExtra("ok",status);
+
+
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // yourMethod();
+            }
+        }, 90000);
+
+        this.finish();
+/*
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        this.finish();
+*/
     }
 
     public void onClick_btn_loesung2(View v)
-    {}
+    {
+        if(btnLoesung2.getText().equals(loesung))
+        {
+            imgCheck.setImageResource(R.drawable.ok_smiley);
+            status = true;
+        }
+        else
+        {
+            status = false;
+            imgCheck.setImageResource(R.drawable.false_smiley);
+        }
+        zurueck_zum_text_intent.putExtra("ok",status);
+
+
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // yourMethod();
+            }
+        }, 90000);
+
+        this.finish();
+    }
 
     public void onClick_btn_loesung3(View v)
-    {}
+    {
+        if(btnLoesung3.getText().equals(loesung))
+        {
+            imgCheck.setImageResource(R.drawable.ok_smiley);
+            status = true;
+        }
+        else
+        {
+            status = false;
+            imgCheck.setImageResource(R.drawable.false_smiley);
+        }
+        zurueck_zum_text_intent.putExtra("ok",status);
+
+
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // yourMethod();
+            }
+        }, 90000);
+
+        this.finish();
+    }
 
     public void onClick_btn_loesung4(View v)
-    {}
+    {
+        if(btnLoesung4.getText().equals(loesung))
+        {
+            imgCheck.setImageResource(R.drawable.ok_smiley);
+            status = true;
+        }
+        else
+        {
+            status = false;
+            imgCheck.setImageResource(R.drawable.false_smiley);
+        }
+        zurueck_zum_text_intent.putExtra("ok",status);
+
+
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // yourMethod();
+            }
+        }, 90000);
+
+        this.finish();
+    }
 
 }
