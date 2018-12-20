@@ -60,12 +60,11 @@ public class TextActivity extends AppCompatActivity {
             tvFilename.setText(filename);
         }
 
-
         char current;
         char[] buffer;
 
         try {
-            InputStream input = getAssets().open(filename);
+            InputStream input = getAssets().open(filename+".txt");
             int size = input.available();
             buffer = new char[size];
 

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,17 +22,31 @@ public class AuswahlActivity extends AppCompatActivity {
     Button btnLoesung3;
     Button btnLoesung4;
     ImageView imgCheck;
-    String loesung;
 
-    Intent zurueck_zum_text_intent;
+    String loesung;
     boolean status;
+
+    //Intent zurueck_zum_text_intent;
+    Handler handler = new Handler();
+
+    Thread auswahlActivity;
+
+    private Runnable finishRunnable = new Runnable()
+    {
+        @Override
+        public void run() {
+            AuswahlActivity.this.finish();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auswahl);
 
-        zurueck_zum_text_intent = new Intent(this, AuswahlActivity.class);
+        auswahlActivity = Thread.currentThread();
+
+        //zurueck_zum_text_intent = new Intent(this, TextActivity.class);
 
         btnLoesung1 = findViewById(R.id.btn_loesung1);
         btnLoesung2 = findViewById(R.id.btn_loesung2);
@@ -71,25 +86,10 @@ public class AuswahlActivity extends AppCompatActivity {
             status = false;
             imgCheck.setImageResource(R.drawable.false_smiley);
         }
-        zurueck_zum_text_intent.putExtra("ok",status);
+        //zurueck_zum_text_intent.putExtra("ok",status);
 
+        handler.postDelayed(finishRunnable, 2000);
 
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                // yourMethod();
-            }
-        }, 90000);
-
-        this.finish();
-/*
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-*/
     }
 
     public void onClick_btn_loesung2(View v)
@@ -104,18 +104,9 @@ public class AuswahlActivity extends AppCompatActivity {
             status = false;
             imgCheck.setImageResource(R.drawable.false_smiley);
         }
-        zurueck_zum_text_intent.putExtra("ok",status);
+        //zurueck_zum_text_intent.putExtra("ok",status);
 
-
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                // yourMethod();
-            }
-        }, 90000);
-
-        this.finish();
+        handler.postDelayed(finishRunnable, 2000);
     }
 
     public void onClick_btn_loesung3(View v)
@@ -130,18 +121,9 @@ public class AuswahlActivity extends AppCompatActivity {
             status = false;
             imgCheck.setImageResource(R.drawable.false_smiley);
         }
-        zurueck_zum_text_intent.putExtra("ok",status);
+        //zurueck_zum_text_intent.putExtra("ok",status);
 
-
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                // yourMethod();
-            }
-        }, 90000);
-
-        this.finish();
+        handler.postDelayed(finishRunnable, 2000);
     }
 
     public void onClick_btn_loesung4(View v)
@@ -156,18 +138,9 @@ public class AuswahlActivity extends AppCompatActivity {
             status = false;
             imgCheck.setImageResource(R.drawable.false_smiley);
         }
-        zurueck_zum_text_intent.putExtra("ok",status);
+        //zurueck_zum_text_intent.putExtra("ok",status);
 
-
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                // yourMethod();
-            }
-        }, 90000);
-
-        this.finish();
+        handler.postDelayed(finishRunnable, 2000);
     }
 
 }
