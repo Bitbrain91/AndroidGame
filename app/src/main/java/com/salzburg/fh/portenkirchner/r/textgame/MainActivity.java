@@ -1,12 +1,15 @@
 package com.salzburg.fh.portenkirchner.r.textgame;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -15,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     Spinner dropDownListTextauswahl;
 
     String filename = "empty Text";
+    FeedReaderDbHelper db;
+    TextView tvHallOfFame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnStart = (Button)findViewById(R.id.btn_start);
         dropDownListTextauswahl = (Spinner) findViewById(R.id.spin_dropDownListTextauswahl);
+        tvHallOfFame = (TextView) findViewById(R.id.tv_hallOfFame);
 
 
         // Create an ArrayAdapter using the string array and a default spinner
@@ -38,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
         dropDownListTextauswahl.setAdapter(staticAdapter);
 
         filename = dropDownListTextauswahl.getSelectedItem().toString();
+
+        db = new FeedReaderDbHelper(this);
+        db.myDelete();
+        db.insert("Reini", 100);
+        db.insert("Clemens", 10);
+
+        tvHallOfFame.setText(db.getValues());
+
     }
 
     public void onClick_btn_start(View v){
