@@ -3,8 +3,14 @@ package com.salzburg.fh.portenkirchner.r.textgame;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.Cursor;
+
+import java.io.File;
+import java.io.IOException;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class FeedReaderDbHelper extends SQLiteOpenHelper {
 
@@ -15,6 +21,7 @@ public class FeedReaderDbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "HallOfFame";
+    public static final String DATABASE_PATH = "/data/data/com.salzburg.fh.portenkirchner.r.textgame/databases/";
     SQLiteDatabase dbWritable;
     SQLiteDatabase dbReadable;
 
@@ -32,15 +39,39 @@ public class FeedReaderDbHelper extends SQLiteOpenHelper {
     public FeedReaderDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-    public void onCreate(SQLiteDatabase db) {
-        dbWritable = this.getWritableDatabase();
-        dbReadable = this.getReadableDatabase();
 
-        dbWritable.execSQL(SQL_CREATE_ENTRIES);
+    //Check database already exists or not
+    private boolean checkDatabaseExists() {
+        boolean checkDB = false;
+        try {
+            String PATH = DATABASE_PATH + DATABASE_NAME;
+            File dbFile = new File(PATH);
+            checkDB = dbFile.exists();
+
+        } catch (SQLiteException e) {
+
+        }
+        return checkDB;
+    }
+
+    public void onCreate(SQLiteDatabase db) {
+        boolean checkDB = checkDatabaseExists();
+        if(checkDB==false) {
+            SQLiteDatabase ndb = SQLiteDatabase.openOrCreateDatabase(DATABASE_PATH + DATABASE_NAME, null);
+            ndb.close();
+        }
+
+        db.execSQL(SQL_CREATE_ENTRIES);
+        //dbWritable = this.getWritableDatabase();
+        //dbReadable = this.getReadableDatabase();
+
+        //dbWritable.execSQL(SQL_CREATE_ENTRIES);
+        //dbWritable.close();
 }
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
+        dbWritable = this.getWritableDatabase();
         db.execSQL(SQL_DELETE_ENTRIES);
         onCreate(db);
     }
@@ -59,6 +90,7 @@ public class FeedReaderDbHelper extends SQLiteOpenHelper {
 
         // Insert the new row, returning the primary key value of the new row
         long newRowId = dbWritable.insert(TABLE_NAME, null, values);
+        dbWritable.close();
     }
 
     public String getValues() {
