@@ -63,6 +63,4 @@ public class MainActivity extends AppCompatActivity {
         i.putExtra("filename", filename);
         startActivity(i);
     }
-
-
 }
