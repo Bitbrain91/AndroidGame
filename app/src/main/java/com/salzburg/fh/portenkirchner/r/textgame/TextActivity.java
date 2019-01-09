@@ -1,5 +1,6 @@
 package com.salzburg.fh.portenkirchner.r.textgame;
-
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.graphics.Color;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ListIterator;
 import java.lang.Integer;
+import com.salzburg.fh.portenkirchner.r.textgame.GlobalVariables;
+
 
 
 public class TextActivity extends AppCompatActivity {
@@ -39,20 +42,24 @@ public class TextActivity extends AppCompatActivity {
 
     TextView tvFilename;
     TextView tvLueckentext;
+    TextView tvScore;
+    TextView tvTries;
     Button btnBack;
+    FeedReaderDbHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         String filename = "";
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text);
 
         tvFilename = findViewById(R.id.tv_filename);
         tvLueckentext = findViewById(R.id.tv_lueckentext);
+        tvScore = findViewById(R.id.tv_score);
+        tvTries = findViewById(R.id.tv_tries);
         btnBack = findViewById(R.id.btn_back);
-
+        db = new FeedReaderDbHelper(this);
         clickIntent = new Intent(TextActivity.this, AuswahlActivity.class);
 
         Bundle extras = getIntent().getExtras();
@@ -115,10 +122,12 @@ public class TextActivity extends AppCompatActivity {
                     bufferZaehler++;
                 }
             }
+
+
+
             bufferZaehler++;
             buffer[bufferZaehler] = '\0';
             Log.d("buffer:", String.valueOf(buffer));
-
 
             //Finaly make gaps klickable
             SpannableString spannable_string_buffer = new SpannableString(String.valueOf(buffer));
@@ -173,17 +182,46 @@ public class TextActivity extends AppCompatActivity {
                     String current_lsg = aly.next();
                     Log.d("lsg", current_lsg);
                 }
-
             }
 
         } catch (IOException ex) {
             Log.d("ERROR DETECTED", "ERROR WHILE TRYING TO OPEN FILE");
         }
 
+        GlobalVariables.getInstance().amountGaps = 2;//lueckenArray.size();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int remainingTries = GlobalVariables.getInstance().amountGaps - GlobalVariables.getInstance().tries;
+        tvTries.setText(String.valueOf(remainingTries));
+        if(GlobalVariables.getInstance().amountGaps <= GlobalVariables.getInstance().tries)
+        {
+            db.insert(GlobalVariables.getInstance().Name, GlobalVariables.getInstance().Score);
+            showDialog();
+        }
+        tvScore.setText(String.valueOf(GlobalVariables.getInstance().Score));
+}
 
     public void onClick_btn_back(View v)
     {
         TextActivity.this.finish();
+    }
+
+    public void showDialog(){
+        AlertDialog alertDialog = new AlertDialog.Builder(TextActivity.this).create();
+        alertDialog.setTitle("Dein Score:");
+        alertDialog.setMessage(String.valueOf(GlobalVariables.getInstance().Score) + " Punkte");
+        // Alert dialog button
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        GlobalVariables.getInstance().reset();
+                        TextActivity.this.finish();
+                        dialog.dismiss();// use dismiss to cancel alert dialog
+                    }
+                });
+        alertDialog.show();
     }
 }

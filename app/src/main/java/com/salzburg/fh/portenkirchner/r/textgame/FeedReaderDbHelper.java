@@ -95,6 +95,5 @@ public class FeedReaderDbHelper extends SQLiteOpenHelper {
 
         // 3. close
         db.close();
-
     }
 }

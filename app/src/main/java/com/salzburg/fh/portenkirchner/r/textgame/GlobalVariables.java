@@ -5,6 +5,7 @@ public class GlobalVariables {
     private static GlobalVariables mInstance= null;
 
     public int Score;
+    public int amountGaps;
     public int tries;
     public String Name;
 
@@ -17,5 +18,10 @@ public class GlobalVariables {
         return mInstance;
     }
 
-    //MyProperties.getInstance().someValueIWantToKeep
+    public void reset()
+    {
+        Score = 0;
+        amountGaps = 0;
+        tries  = 0;
+    }
 }

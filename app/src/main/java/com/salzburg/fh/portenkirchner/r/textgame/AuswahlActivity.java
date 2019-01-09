@@ -14,6 +14,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import com.salzburg.fh.portenkirchner.r.textgame.GlobalVariables;
 
 public class AuswahlActivity extends AppCompatActivity {
 
@@ -35,6 +36,9 @@ public class AuswahlActivity extends AppCompatActivity {
     {
         @Override
         public void run() {
+            GlobalVariables.getInstance().tries++;
+            if(status)
+                GlobalVariables.getInstance().Score++;
             AuswahlActivity.this.finish();
         }
     };
