@@ -142,5 +142,4 @@ public class AuswahlActivity extends AppCompatActivity {
 
         handler.postDelayed(finishRunnable, 2000);
     }
-
 }

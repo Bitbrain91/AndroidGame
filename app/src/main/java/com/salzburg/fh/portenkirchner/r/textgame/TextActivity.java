@@ -39,7 +39,7 @@ public class TextActivity extends AppCompatActivity {
 
     TextView tvFilename;
     TextView tvLueckentext;
-
+    Button btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,7 @@ public class TextActivity extends AppCompatActivity {
 
         tvFilename = findViewById(R.id.tv_filename);
         tvLueckentext = findViewById(R.id.tv_lueckentext);
+        btnBack = findViewById(R.id.btn_back);
 
         clickIntent = new Intent(TextActivity.this, AuswahlActivity.class);
 
@@ -64,7 +65,7 @@ public class TextActivity extends AppCompatActivity {
         char[] buffer;
 
         try {
-            InputStream input = getAssets().open(filename+".txt");
+            InputStream input = getAssets().open(filename + ".txt");
             int size = input.available();
             buffer = new char[size];
 
@@ -86,7 +87,7 @@ public class TextActivity extends AppCompatActivity {
                     lueckenArray.get(lueckenZaehler).add("");
 
                     //Add gap in Textbuffer (standardized 4 unterscore chars)
-                    for(int j = 0; j<=(gap_width-1);j++) {
+                    for (int j = 0; j <= (gap_width - 1); j++) {
                         buffer[bufferZaehler] = '_';
                         bufferZaehler++;
                     }
@@ -105,17 +106,17 @@ public class TextActivity extends AppCompatActivity {
                     continue;
                 }
                 if (altFlag == true) {
-                    lueckenArray.get(lueckenZaehler).set(lsgZaehler, lueckenArray.get(lueckenZaehler).get(lsgZaehler)+current);
+                    lueckenArray.get(lueckenZaehler).set(lsgZaehler, lueckenArray.get(lueckenZaehler).get(lsgZaehler) + current);
                     /*buffer[bufferZaehler] = '_';
                     bufferZaehler++;*/
                 } else {
-                    Log.d("char:", ""+current);
+                    Log.d("char:", "" + current);
                     buffer[bufferZaehler] = current;
                     bufferZaehler++;
                 }
             }
             bufferZaehler++;
-            buffer[bufferZaehler]='\0';
+            buffer[bufferZaehler] = '\0';
             Log.d("buffer:", String.valueOf(buffer));
 
 
@@ -124,24 +125,24 @@ public class TextActivity extends AppCompatActivity {
             ArrayList<ClickableSpan> spans = new ArrayList<ClickableSpan>();
             int li = 0;
 
-            luecke_nr=0;
+            luecke_nr = 0;
             Iterator<java.lang.Integer> lii = lueckenIndex.iterator();
-            while(lii.hasNext()) {
+            while (lii.hasNext()) {
                 li = lii.next();
                 luecke_nr++;
-                Log.d("establish","installing clickable span # "+String.valueOf(luecke_nr));
+                Log.d("establish", "installing clickable span # " + String.valueOf(luecke_nr));
 
                 ClickableSpan sp = new ClickableSpan() {
                     final int lueckenr = luecke_nr;
 
                     @Override
                     public void onClick(View v) {
-                        Toast toast = Toast.makeText(TextActivity.this, "LueckeNr "+String.valueOf(lueckenr), Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(TextActivity.this, "LueckeNr " + String.valueOf(lueckenr), Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.show();
-                        Log.d("gap clicked", "luecke#: " + String.valueOf(luecke_nr) + "Loesung1: " + String.valueOf(lueckenArray.get(lueckenr-1).get(0)));
+                        Log.d("gap clicked", "luecke#: " + String.valueOf(luecke_nr) + "Loesung1: " + String.valueOf(lueckenArray.get(lueckenr - 1).get(0)));
                         //Log.d("gap clicked", "luecke klicked!"+String.valueOf(this.lueckenr));
-                        clickIntent.putExtra("loesungen", lueckenArray.get(lueckenr-1));
+                        clickIntent.putExtra("loesungen", lueckenArray.get(lueckenr - 1));
                         startActivity(clickIntent);
                     }
 
@@ -155,7 +156,7 @@ public class TextActivity extends AppCompatActivity {
                 };
 
                 spans.add(sp);
-                spannable_string_buffer.setSpan(spans.get(spans.size()-1), li, li+gap_width, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                spannable_string_buffer.setSpan(spans.get(spans.size() - 1), li, li + gap_width, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
 
             //Write spanned text to TextView field.
@@ -165,20 +166,24 @@ public class TextActivity extends AppCompatActivity {
 
             //Print gap - Solution list to Log
             Iterator<ArrayList<String>> ali = lueckenArray.iterator();
-            while(ali.hasNext()){
+            while (ali.hasNext()) {
                 ArrayList<String> lsgArray = ali.next();
                 Iterator<String> aly = lsgArray.iterator();
-                while(aly.hasNext()){
+                while (aly.hasNext()) {
                     String current_lsg = aly.next();
-                    Log.d("lsg",current_lsg);
+                    Log.d("lsg", current_lsg);
                 }
 
             }
 
-        }
-        catch(IOException ex){
-                Log.d("ERROR DETECTED", "ERROR WHILE TRYING TO OPEN FILE");
+        } catch (IOException ex) {
+            Log.d("ERROR DETECTED", "ERROR WHILE TRYING TO OPEN FILE");
         }
 
+    }
+
+    public void onClick_btn_back(View v)
+    {
+        TextActivity.this.finish();
     }
 }
