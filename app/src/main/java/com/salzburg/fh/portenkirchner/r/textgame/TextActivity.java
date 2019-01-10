@@ -1,5 +1,6 @@
 package com.salzburg.fh.portenkirchner.r.textgame;
 import android.content.DialogInterface;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,8 +11,10 @@ import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
-import android.util.TypedValue;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View;
 import android.widget.Toast;
@@ -22,10 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.ListIterator;
 import java.lang.Integer;
-import com.salzburg.fh.portenkirchner.r.textgame.GlobalVariables;
-
 
 
 public class TextActivity extends AppCompatActivity {
@@ -34,6 +34,8 @@ public class TextActivity extends AppCompatActivity {
     int gap_width = 4;
 
     //global for access in onClick method
+
+    Animation animationMuenzeRotieren;
 
     int luecke_nr=0;
     ArrayList<ArrayList<String>> lueckenArray = new ArrayList<ArrayList<String>>();
@@ -44,6 +46,7 @@ public class TextActivity extends AppCompatActivity {
     TextView tvLueckentext;
     TextView tvScore;
     TextView tvTries;
+    ImageView ivMuenze;
     Button btnBack;
     FeedReaderDbHelper db;
 
@@ -61,6 +64,10 @@ public class TextActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btn_back);
         db = new FeedReaderDbHelper(this);
         clickIntent = new Intent(TextActivity.this, AuswahlActivity.class);
+        ivMuenze = findViewById(R.id.iv_muenze);
+        ivMuenze.setBackgroundResource(R.drawable.coin);
+        AnimationDrawable frameAnimation = (AnimationDrawable) ivMuenze.getBackground();
+        frameAnimation.start();
 
         Bundle extras = getIntent().getExtras();
         if (!extras.isEmpty()) {
@@ -188,7 +195,7 @@ public class TextActivity extends AppCompatActivity {
             Log.d("ERROR DETECTED", "ERROR WHILE TRYING TO OPEN FILE");
         }
 
-        GlobalVariables.getInstance().amountGaps = 2;//lueckenArray.size();
+        GlobalVariables.getInstance().amountGaps = lueckenArray.size();
     }
 
     @Override

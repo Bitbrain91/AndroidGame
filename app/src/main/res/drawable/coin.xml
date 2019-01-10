@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false" android:repeatMode="reverse">
+    <item android:drawable="@drawable/starcoinrotate1" android:duration="200" />
+    <item android:drawable="@drawable/starcoinrotate2" android:duration="200" />
+    <item android:drawable="@drawable/starcoinrotate3" android:duration="200" />
+    <item android:drawable="@drawable/starcoinrotate4" android:duration="0" />
+    <item android:drawable="@drawable/starcoinrotate5" android:duration="200" />
+    <item android:drawable="@drawable/starcoinrotate6" android:duration="200" />
+</animation-list>

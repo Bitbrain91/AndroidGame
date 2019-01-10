@@ -32,29 +32,68 @@
             android:layout_height="match_parent"
             android:layout_weight="50"
             android:background="@android:color/background_light"
+            android:gravity="left"
             android:text="TextView"
             android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/tv_tries"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="200"
-            android:text="TextView"
-            android:textAlignment="viewEnd" />
+            android:orientation="horizontal"
+            android:layout_weight="200">
+
+            <TextView
+                android:id="@+id/tv_tries_text"
+                android:layout_width="255dp"
+                android:layout_height="match_parent"
+                android:layout_weight="200"
+                android:gravity="left"
+                android:text="Chances: "
+                android:textAlignment="viewStart"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tv_tries"
+                android:layout_width="417dp"
+                android:layout_height="match_parent"
+                android:layout_weight="200"
+                android:gravity="left"
+                android:text="TextView"
+                android:textAlignment="viewStart"
+                android:textSize="24sp" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="200"
             android:orientation="horizontal">
-
+            <TextView
+                android:id="@+id/tv_score_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:textSize="24sp"
+                android:textAlignment="viewStart"
+                android:text="Score: " />
             <TextView
                 android:id="@+id/tv_score"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="left"
+                android:textSize="24sp"
+                android:textAlignment="viewStart"
                 android:text="TextView" />
+
+
+            <ImageView
+                android:id="@+id/iv_muenze"
+                android:layout_width="321dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                />
 
             <Button
                 android:id="@+id/btn_back"
@@ -62,7 +101,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:onClick="onClick_btn_back"
-                android:text="Button" />
+                android:text="Abbrechen" />
         </LinearLayout>
 
     </LinearLayout>

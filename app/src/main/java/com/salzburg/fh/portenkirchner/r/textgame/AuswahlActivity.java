@@ -1,6 +1,7 @@
 package com.salzburg.fh.portenkirchner.r.textgame;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +24,9 @@ public class AuswahlActivity extends AppCompatActivity {
     Button btnLoesung3;
     Button btnLoesung4;
     ImageView imgCheck;
+
+    private MediaPlayer mp;
+
 
     String loesung;
     boolean status;
@@ -49,6 +53,8 @@ public class AuswahlActivity extends AppCompatActivity {
         setContentView(R.layout.activity_auswahl);
 
         auswahlActivity = Thread.currentThread();
+
+        mp = MediaPlayer.create(this, R.raw.cheer);
 
         //zurueck_zum_text_intent = new Intent(this, TextActivity.class);
 
@@ -83,6 +89,7 @@ public class AuswahlActivity extends AppCompatActivity {
         if(btnLoesung1.getText().equals(loesung))
         {
             imgCheck.setImageResource(R.drawable.ok_smiley);
+            mp.start();
             status = true;
         }
         else
@@ -101,6 +108,7 @@ public class AuswahlActivity extends AppCompatActivity {
         if(btnLoesung2.getText().equals(loesung))
         {
             imgCheck.setImageResource(R.drawable.ok_smiley);
+            mp.start();
             status = true;
         }
         else
@@ -118,6 +126,7 @@ public class AuswahlActivity extends AppCompatActivity {
         if(btnLoesung3.getText().equals(loesung))
         {
             imgCheck.setImageResource(R.drawable.ok_smiley);
+            mp.start();
             status = true;
         }
         else
@@ -135,6 +144,7 @@ public class AuswahlActivity extends AppCompatActivity {
         if(btnLoesung4.getText().equals(loesung))
         {
             imgCheck.setImageResource(R.drawable.ok_smiley);
+            mp.start();
             status = true;
         }
         else
