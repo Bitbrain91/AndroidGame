@@ -62,6 +62,7 @@ public class TextActivity extends AppCompatActivity {
         tvLueckentext = findViewById(R.id.tv_lueckentext);
         tvScore = findViewById(R.id.tv_score);
         tvTries = findViewById(R.id.tv_tries);
+        tvScore.setText(String.valueOf(GlobalVariables.getInstance().Score));
         btnBack = findViewById(R.id.btn_back);
         db = new FeedReaderDbHelper(this);
         clickIntent = new Intent(TextActivity.this, AuswahlActivity.class);
@@ -204,6 +205,7 @@ public class TextActivity extends AppCompatActivity {
         super.onResume();
         int remainingTries = GlobalVariables.getInstance().amountGaps - GlobalVariables.getInstance().tries;
         tvTries.setText(String.valueOf(remainingTries));
+        tvScore.setText(String.valueOf(GlobalVariables.getInstance().Score));
         if(GlobalVariables.getInstance().amountGaps <= GlobalVariables.getInstance().tries)
         {
             db.insert(GlobalVariables.getInstance().Name, GlobalVariables.getInstance().Score);
