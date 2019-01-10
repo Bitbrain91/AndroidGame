@@ -50,6 +50,7 @@ public class TextActivity extends AppCompatActivity {
     Button btnBack;
     FeedReaderDbHelper db;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         String filename = "";
@@ -208,7 +209,6 @@ public class TextActivity extends AppCompatActivity {
             db.insert(GlobalVariables.getInstance().Name, GlobalVariables.getInstance().Score);
             showDialog();
         }
-        tvScore.setText(String.valueOf(GlobalVariables.getInstance().Score));
 }
 
     public void onClick_btn_back(View v)
@@ -229,6 +229,10 @@ public class TextActivity extends AppCompatActivity {
                         dialog.dismiss();// use dismiss to cancel alert dialog
                     }
                 });
+
         alertDialog.show();
+        Button b = ((AlertDialog)alertDialog).getButton(AlertDialog.BUTTON_NEUTRAL);
+        b.setTextColor(Color.BLACK);
+
     }
 }

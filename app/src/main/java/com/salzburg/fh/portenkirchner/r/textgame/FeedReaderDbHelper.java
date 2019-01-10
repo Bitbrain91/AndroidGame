@@ -100,7 +100,7 @@ public class FeedReaderDbHelper extends SQLiteOpenHelper {
 
         final String SQL_QUERY =
                 "SELECT " + COLUMN_NAME_SCORE + "," + COLUMN_NAME_NICKNAME + " FROM " +
-                        TABLE_NAME + ";";
+                        TABLE_NAME + " ORDER BY " + COLUMN_NAME_SCORE + " DESC;";
         Cursor cursor = dbReadable.rawQuery(SQL_QUERY,null);
 
         cursor.getColumnNames().toString();
@@ -108,7 +108,7 @@ public class FeedReaderDbHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 result = result + cursor.getString(0);
-                result = result + ",";
+                result = result + "  ";
                 result = result + cursor.getString(1);
                 result = result + "\n";
             } while (cursor.moveToNext());

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         btnStart = (Button)findViewById(R.id.btn_start);
         dropDownListTextauswahl = (Spinner) findViewById(R.id.spin_dropDownListTextauswahl);
         tvHallOfFame = (TextView) findViewById(R.id.tv_hallOfFame);
+        tvHallOfFame.setMovementMethod(new ScrollingMovementMethod());
         etxtName = (EditText) findViewById(R.id.etxt_name);
 
         // Create an ArrayAdapter using the string array and a default spinner

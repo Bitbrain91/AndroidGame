@@ -25,7 +25,8 @@ public class AuswahlActivity extends AppCompatActivity {
     Button btnLoesung4;
     ImageView imgCheck;
 
-    private MediaPlayer mp;
+    private MediaPlayer mp_ok;
+    private MediaPlayer mp_fail;
 
 
     String loesung;
@@ -48,13 +49,21 @@ public class AuswahlActivity extends AppCompatActivity {
     };
 
     @Override
+    protected void onDestroy() {
+        mp_ok.release();
+        mp_fail.release();
+        super.onDestroy();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auswahl);
 
         auswahlActivity = Thread.currentThread();
 
-        mp = MediaPlayer.create(this, R.raw.cheer);
+        mp_ok = MediaPlayer.create(this, R.raw.cheer);
+        mp_fail = MediaPlayer.create(this, R.raw.fail);
 
         //zurueck_zum_text_intent = new Intent(this, TextActivity.class);
 
@@ -89,11 +98,12 @@ public class AuswahlActivity extends AppCompatActivity {
         if(btnLoesung1.getText().equals(loesung))
         {
             imgCheck.setImageResource(R.drawable.ok_smiley);
-            mp.start();
+            mp_ok.start();
             status = true;
         }
         else
         {
+            mp_fail.start();
             status = false;
             imgCheck.setImageResource(R.drawable.false_smiley);
         }
@@ -108,11 +118,12 @@ public class AuswahlActivity extends AppCompatActivity {
         if(btnLoesung2.getText().equals(loesung))
         {
             imgCheck.setImageResource(R.drawable.ok_smiley);
-            mp.start();
+            mp_ok.start();
             status = true;
         }
         else
         {
+            mp_fail.start();
             status = false;
             imgCheck.setImageResource(R.drawable.false_smiley);
         }
@@ -126,11 +137,12 @@ public class AuswahlActivity extends AppCompatActivity {
         if(btnLoesung3.getText().equals(loesung))
         {
             imgCheck.setImageResource(R.drawable.ok_smiley);
-            mp.start();
+            mp_ok.start();
             status = true;
         }
         else
         {
+            mp_fail.start();
             status = false;
             imgCheck.setImageResource(R.drawable.false_smiley);
         }
@@ -144,11 +156,12 @@ public class AuswahlActivity extends AppCompatActivity {
         if(btnLoesung4.getText().equals(loesung))
         {
             imgCheck.setImageResource(R.drawable.ok_smiley);
-            mp.start();
+            mp_ok.start();
             status = true;
         }
         else
         {
+            mp_fail.start();
             status = false;
             imgCheck.setImageResource(R.drawable.false_smiley);
         }
